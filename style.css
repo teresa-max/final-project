@@ -48,6 +48,7 @@ button {
   margin-top: 1.6em;
   opacity: 0.6;
 }
+#title p.credit { font-style: normal; font-size: 0.75rem; letter-spacing: 0.08em; margin-top: 3em; opacity: 0.45; }
 #begin {
   pointer-events: auto;
   margin-top: 2.2em;
