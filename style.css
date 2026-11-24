@@ -1,0 +1,125 @@
+/* base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: #1e2b1b;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: #f6ecd9;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* everything sits on top of the canvas and lets clicks pass through */
+canvas, #title, #hint, #dots, #grain, #veil { position: fixed; pointer-events: none; }
+canvas { inset: 0; width: 100vw; height: 100vh; pointer-events: auto; touch-action: none; }
+
+/* the two buttons */
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  font-style: italic;
+  cursor: pointer;
+}
+
+/* title */
+#title {
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 2s, transform 2s;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+}
+#title.show { opacity: 1; transform: none; }
+#title h1 { font-weight: 300; font-size: clamp(4rem, 14vw, 10rem); letter-spacing: 0.06em; line-height: 1; }
+#title p { font-style: italic; font-size: clamp(1rem, 2.4vw, 1.5rem); margin-top: 0.6em; opacity: 0.85; }
+#title p.small {
+  font-style: normal;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-top: 1.6em;
+  opacity: 0.6;
+}
+#begin {
+  pointer-events: auto;
+  margin-top: 2.2em;
+  padding: 0.55em 2.4em;
+  border: 1px solid rgba(246, 236, 217, 0.6);
+  border-radius: 999px;
+  font-size: 1.2rem;
+  letter-spacing: 0.12em;
+  transition: background 0.4s, border-color 0.4s;
+}
+#begin:hover { background: rgba(246, 236, 217, 0.12); border-color: rgba(246, 236, 217, 0.95); }
+
+/* end screen: dark text, title moved up so it doesn't cover the book */
+#title.end { color: #3b3437; text-shadow: none; justify-content: flex-start; padding-top: 8vh; }
+#title.end h1 { font-size: clamp(3rem, 8vw, 5.5rem); }
+
+/* hint */
+#hint {
+  left: 50%;
+  bottom: 7vh;
+  transform: translateX(-50%);
+  width: min(90vw, 40rem);
+  text-align: center;
+  font-style: italic;
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transition: opacity 1.2s;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+}
+#hint.show { opacity: 0.9; }
+
+/* dots */
+#dots { right: 24px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; }
+#dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid rgba(246, 236, 217, 0.7);
+  transition: background 0.8s, transform 0.8s;
+}
+#dots span.active { background: rgba(246, 236, 217, 0.9); transform: scale(1.4); }
+
+/* sound button */
+#sound { position: fixed; top: 18px; right: 20px; z-index: 5; letter-spacing: 0.08em; opacity: 0.6; transition: opacity 0.3s; }
+#sound:hover { opacity: 1; }
+
+/* film grain */
+#grain {
+  inset: -50%;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 0.9s steps(4) infinite;
+}
+@keyframes grain {
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); }
+  75% { transform: translate(-2%, -1%); }
+}
+
+/* black fade when starting over */
+#veil { inset: 0; background: #120f14; opacity: 0; transition: opacity 1.4s; }
+#veil.on { opacity: 1; }
+
+/* the last scene has a light sky, so the text goes dark */
+.winter #hint, .winter #sound { color: #3b3437; text-shadow: none; }
+.winter #dots span { border-color: rgba(59, 52, 55, 0.6); }
+.winter #dots span.active { background: rgba(59, 52, 55, 0.8); }
+
+/* phones */
+@media (max-width: 600px) {
+  #dots { right: 12px; gap: 8px; }
+  #hint { bottom: 10vh; }
+  #sound { top: 12px; right: 12px; font-size: 0.9rem; }
+}

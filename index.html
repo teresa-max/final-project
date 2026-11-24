@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fall</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="scene" aria-label="An interactive autumn scene"></canvas>
+
+    <!-- title, also used at the end -->
+    <div id="title" class="show">
+      <h1>Fall</h1>
+      <p>an autumn, from branch to ground</p>
+      <button id="begin" type="button">begin</button>
+      <p class="small">best with sound on</p>
+    </div>
+
+    <!-- hint text for each scene -->
+    <p id="hint" aria-live="polite"></p>
+
+    <!-- which scene you're on -->
+    <div id="dots" aria-hidden="true">
+      <span class="active"></span><span></span><span></span><span></span>
+    </div>
+
+    <button id="sound" type="button">sound on</button>
+
+    <div id="grain"></div>
+    <div id="veil"></div>
+
+    <!-- put your music file in the folder and name it bgm.mp3 -->
+    <audio id="bgm" src="bgm.mp3" loop preload="auto"></audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>
